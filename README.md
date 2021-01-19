@@ -13,12 +13,12 @@ After run
 npm run start
 
 ### About app
-List:
+* List
     * Fetches images from API
     * Pagination
     * Can change number of received images from API
     * By clicking on images changes screen to View
 
-View:
+* View
     * Shows detailed information about kitty
     * Go back to List screen
