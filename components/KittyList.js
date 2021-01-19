@@ -1,10 +1,18 @@
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { useSelector } from "react-redux";
+
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, TextInput } from "react-native";
 import { checkConnected } from "../checkConnection";
 import ErrorScreen from "../screens/ErrorScreen";
 import Loader from "../components/Loader";
+import { set } from "react-native-reanimated";
 
 export default function Kitties() {
+  const store = createStore(() => ({
+    kitties: [],
+  }));
   const [connectStatus, setConnectStatus] = useState(false);
   const [loading, setLoading] = useState(false);
   const [kitties, setKitties] = useState([]);
@@ -18,7 +26,6 @@ export default function Kitties() {
   const [viewChanger, setViewChanger] = useState(true);
   const [imageLink, setImageLink] = useState("");
   const [catName, setCatName] = useState("");
-
   //checks internet connection
   checkConnected().then((res) => {
     setConnectStatus(res);
@@ -31,7 +38,9 @@ export default function Kitties() {
     );
     const data = await res.json();
 
-    setKitties(data);
+    // getting data with redux and passing to state
+    store.getState().kitties = data;
+    setKitties(store.getState().kitties);
     setLoading(false);
   };
   useEffect(() => {
@@ -160,6 +169,7 @@ export default function Kitties() {
   }
 
   function KittyList() {
+      // const kitties = useSelector((state) => state.kitties);
     return (
       <main>
         <RenderKitties></RenderKitties>
@@ -203,7 +213,9 @@ export default function Kitties() {
       {loading ? (
         <Loader></Loader>
       ) : viewChanger ? (
-        <KittyList></KittyList>
+        <Provider store={store}>
+          <KittyList></KittyList>
+        </Provider>
       ) : (
         <KittyView></KittyView>
       )}
