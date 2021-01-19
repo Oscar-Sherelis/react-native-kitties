@@ -3,9 +3,9 @@
 ## React native, redux, API
 
 ### Instruction
-Important to have installed
-Node js
-React native CLI
+* Important to have installed
+    * Node js
+    * React native CLI
 
 In project root directory install packages with command - npm i
 
