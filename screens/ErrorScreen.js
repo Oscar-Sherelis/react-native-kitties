@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ImageBackground, StyleSheet, View } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
 
 const ErrorScreen = () => (
   <ImageBackground

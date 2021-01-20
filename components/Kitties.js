@@ -1,15 +1,14 @@
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { useSelector } from "react-redux";
 
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, TextInput } from "react-native";
 import { checkConnected } from "../checkConnection";
 import ErrorScreen from "../screens/ErrorScreen";
-import Loader from "../components/Loader";
-import { set } from "react-native-reanimated";
+import Loader from "./Loader";
 
 export default function Kitties() {
+
   const store = createStore(() => ({
     kitties: [],
   }));
@@ -26,6 +25,7 @@ export default function Kitties() {
   const [viewChanger, setViewChanger] = useState(true);
   const [imageLink, setImageLink] = useState("");
   const [catName, setCatName] = useState("");
+
   //checks internet connection
   checkConnected().then((res) => {
     setConnectStatus(res);
@@ -125,9 +125,9 @@ export default function Kitties() {
       });
       return (
         <div>
-          <div>
+          <div style={{display: "flex", justifyContent: "center", marginBottom: 20}}>
             <label>
-              Number of received images: 
+              Number of received images:
               <TextInput
                 style={{ height: 40, border: "1px solid silver" }}
                 placeholder="Type number of received images"
@@ -136,8 +136,9 @@ export default function Kitties() {
               />
             </label>
           </div>
-          <div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <button
+              style={{ padding: "20px 30px" }}
               onClick={() => {
                 setKittiesPerPage(30);
               }}
@@ -145,6 +146,7 @@ export default function Kitties() {
               30
             </button>
             <button
+              style={{ padding: "20px 30px" }}
               onClick={() => {
                 setKittiesPerPage(50);
               }}
@@ -152,6 +154,7 @@ export default function Kitties() {
               50
             </button>
             <button
+              style={{ padding: "20px 30px" }}
               onClick={() => {
                 setKittiesPerPage(100);
               }}
@@ -169,7 +172,6 @@ export default function Kitties() {
   }
 
   function KittyList() {
-      // const kitties = useSelector((state) => state.kitties);
     return (
       <main>
         <RenderKitties></RenderKitties>

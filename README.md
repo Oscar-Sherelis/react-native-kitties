@@ -13,7 +13,7 @@ After run
 npm run start
 
 ### About app
-* List
+* List (main screen)
     * Fetches images from API
     * Pagination
     * Can change number of received images from API
