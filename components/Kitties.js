@@ -6,7 +6,6 @@ import { StyleSheet, View, Image, TextInput } from "react-native";
 import { checkConnected } from "../checkConnection";
 import ErrorScreen from "../screens/ErrorScreen";
 import Loader from "./Loader";
-
 export default function Kitties() {
 
   const store = createStore(() => ({
@@ -33,10 +32,20 @@ export default function Kitties() {
 
   const fetchKitties = async () => {
     setLoading(true);
-    const res = await fetch(
-      "https://picsum.photos/v2/list?page=2&limit=" + receivedImagesNumber
-    );
-    const data = await res.json();
+
+    const getRandomArbitrary = (min, max) =>{
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    let data = []
+    for (let i = 0; i < receivedImagesNumber; i++) {
+      data.push(
+        "http://placekitten.com/" +
+          getRandomArbitrary(200, 1000) +
+          "/" +
+          getRandomArbitrary(200, 1000)
+      );
+    }
 
     // getting data with redux and passing to state
     store.getState().kitties = data;
@@ -79,24 +88,18 @@ export default function Kitties() {
       );
 
       const renderKitties = indexOfFirstKitties.map((kitty) => {
-        let randomImage =
-          "https://picsum.photos/id/" +
-          indexOfFirstKitties[
-            Math.ceil(Math.random() * indexOfFirstKitties.length - 1)
-          ].id +
-          "/200";
 
         let randomCat = nameArr[Math.ceil(Math.random() * nameArr.length - 1)];
 
         return (
           <li
-            onClick={() => changeView(randomImage, randomCat)}
+            onClick={() => changeView(kitty, randomCat)}
             key={kitty.id}
             style={{ marginBottom: "25px" }}
           >
             <Image
               source={{
-                uri: randomImage,
+                uri: kitty,
               }}
               style={styles.imageStyle}
             />
