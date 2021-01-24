@@ -87,14 +87,14 @@ export default function Kitties() {
         indexOfLastKitty
       );
 
-      const renderKitties = indexOfFirstKitties.map((kitty) => {
+      const renderKitties = indexOfFirstKitties.map((kitty, kittyKey) => {
 
         let randomCat = nameArr[Math.ceil(Math.random() * nameArr.length - 1)];
 
         return (
           <li
             onClick={() => changeView(kitty, randomCat)}
-            key={kitty.id}
+            key={kittyKey}
             style={{ marginBottom: "25px" }}
           >
             <Image
